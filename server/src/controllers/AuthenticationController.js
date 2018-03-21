@@ -19,7 +19,7 @@ module.exports = {
         email: req.body.email,
         password: req.body.password
       }
-      console.log(newUser)
+     // console.log(newUser)
       //const user = await User.create(req.body)
 
       //console.log(User)
@@ -29,7 +29,7 @@ module.exports = {
         return user
       })
 
-      console.log(user)
+      //console.log(user)
       const userJson = user.toJSON()
       res.send({
         user: userJson,
@@ -57,8 +57,8 @@ module.exports = {
           error: 'The login information was incorrect'
         });
       }
-      console.log(password)
-      console.log(user.password)
+      //console.log(password)
+      //console.log(user.password)
 
       const isPasswordValid =  bcrypt.compare(password, user.passwordassword)
       //console.log(isPasswordValid)
@@ -69,7 +69,7 @@ module.exports = {
       }
 
       const userJson = user.toJSON()
-      console.log(userJson)
+      //console.log(userJson)
       res.send({
         user: userJson,
         token: jwtSignUser(userJson)

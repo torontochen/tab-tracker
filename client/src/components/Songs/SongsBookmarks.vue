@@ -6,10 +6,10 @@
       :items="bookmarks">
       <template slot="items" slot-scope="props">
         <td class="text-xs-right">
-          {{props.item.title}}
+          {{props.item.song.title}}
         </td>
         <td class="text-xs-right">
-          {{props.item.artist}}
+          {{props.item.song.artist}}
         </td>
       </template>
     </v-data-table>
@@ -49,6 +49,7 @@ export default {
   async mounted(){
     if (this.isUserLoggedIn){
       this.bookmarks = (await BookmarksService.index()).data
+      //console.log(this.bookmarks)
     }
   }
 

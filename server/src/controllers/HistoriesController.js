@@ -1,33 +1,41 @@
 const {
-  History,
-  Song
-} = require('../models')
+  History  
+} = require('../models/History')
+const {Song} = require('../models/Song')
 const _ = require('lodash')
 
 module.exports = {
   async index (req, res) {
     try {
       const userId = req.user.id
-      const histories = await History.findAll({
-        where: {
-          UserId: userId
-        },
-        include: [
-          {
-            model: Song
-          }
-        ],
-        order: [
-          ['createdAt', 'DESC']
-        ]
-      })
-        .map(history => history.toJSON())
-        .map(history => _.extend(
-          {},
-          history.Song,
-          history
-        ))
-      res.send(_.uniqBy(histories, history => history.SongId))
+      const histories = await History.find(
+        
+          {user: userId},
+        //   {sort:{
+        //     date_reviewed: -1 //Sort by Date Added DESC
+        // }}
+        
+        // include: [
+        //   {
+        //     model: Song
+        //   }
+        // ],
+        // order: [
+        //   ['createdAt', 'DESC']
+        // ]
+      )
+      .sort({
+             date_reviewed: -1 //Sort by Date Added DESC
+         })
+      .populate('song')
+        // .map(history => history.toJSON())
+        // .map(history => _.extend(
+        //   {},
+        //   history.Song,
+        //   history
+        // ))
+        console.log(histories)
+      res.send(_.uniqBy(histories, history => history.song))
     } catch (err) {
       res.status(500).send({
         error: 'an error has occured trying to fetch the history'
@@ -39,8 +47,8 @@ module.exports = {
       const userId = req.user.id
       const {songId} = req.body
       const history = await History.create({
-        SongId: songId,
-        UserId: userId
+        song: songId,
+        user: userId
       })
       res.send(history)
     } catch (err) {

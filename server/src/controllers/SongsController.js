@@ -11,7 +11,7 @@ module.exports = {
       //console.log(`/.*${search}.*/i`)
       const query = ".*" + search + ".*"
       const queryReg = new RegExp (query,'i')
-      console.log(queryReg)
+     // console.log(queryReg)
       const  songs = await Song.find({            
                 $or:[
                     {title: queryReg},
@@ -21,7 +21,7 @@ module.exports = {
                     ]
             })
             res.send(songs)
-            console.log(songs)
+           // console.log(songs)
      } else {
       const songs = await Song.find({
         limit:10
@@ -58,7 +58,7 @@ module.exports = {
         lyrics: req.body.lyrics,
         tab: req.body.tab
       }
-      console.log(newSong)
+     // console.log(newSong)
       //const user = await User.create(req.body)
 
       //console.log(User)

@@ -150,9 +150,10 @@ export default {
 //   },
   methods:{
    async setAsBookmark () {
+      console.log(this.song._id)
       try {
         this.bookmark = (await BookmarksService.post({
-          songId: this.song.id          
+          songId: this.song._id          
         })).data
       } catch (err) {
         console.log(err)
@@ -160,7 +161,7 @@ export default {
     },
     async unsetAsBookmark () {
       try {
-        await BookmarksService.delete(this.bookmark.id)
+        await BookmarksService.delete(this.bookmark._id)
         //console.log(this.bookmark.id)
         this.bookmark = null
       } catch (err) {
@@ -170,7 +171,9 @@ export default {
   },
 
   async mounted(){
+      
       const songId = this.$store.state.route.params.songId
+      console.log(songId)
       this.song = (await SongsService.show(songId)).data
 
      if (this.isUserLoggedIn) {

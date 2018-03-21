@@ -34,7 +34,7 @@ module.exports = (app) => {
   isAuthenticated,
   HistoriesController.index)
 
-app.post('/histories',
-isAuthenticated,
-  HistoriesController.post)
-}
+  app.post('/histories',
+  isAuthenticated,
+    HistoriesController.post)
+  }

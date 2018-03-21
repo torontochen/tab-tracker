@@ -1,5 +1,5 @@
 const passport = require('passport')
-const {User} = require('./models')
+const {User} = require('./models/User')
 
 const JwtStrategy = require('passport-jwt').Strategy
 const ExtractJwt = require('passport-jwt').ExtractJwt
@@ -12,10 +12,11 @@ passport.use(
     secretOrKey: config.authentication.jwtSecret
   }, async function (jwtPayload, done) {
     try {
+      //console.log(jwtPayload)
       const user = await User.findOne({
-        where: {
-          _id: jwtPayload.id
-        }
+        
+          _id: jwtPayload._id
+      
       })
       if (!user) {
         return done(new Error(), false)
