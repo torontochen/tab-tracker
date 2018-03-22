@@ -4,11 +4,15 @@ const cors = require('cors');
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 //const {sequelize} = require('./models')
+const serveStatic = require('serve-static');
 const config = require('./config/config')
 const app = express();
+//app.use(serveStatic(__dirname + "/dist"));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
+app.use(express.static('dist'));
+
 
 require('./passport')
 require('./routes')(app)
