@@ -7,11 +7,11 @@ const mongoose = require('mongoose');
 const serveStatic = require('serve-static');
 const config = require('./config/config')
 const app = express();
-//app.use(serveStatic(__dirname + "/dist"));
+app.use(serveStatic(__dirname + "client/dist"));
 app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(cors());
-app.use(express.static('dist'));
+//app.use(express.static('dist'));
 
 
 require('./passport')
